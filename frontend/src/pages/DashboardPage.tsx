@@ -199,30 +199,47 @@ function OwnerDashboard({ outlets }: { outlets: any[] }) {
         </CardContent>
       </Card>
 
-      {/* Outlets List */}
-      <Card>
+      {/* Outlets List - Shopee Style */}
+      <Card className="border-0 shadow-md bg-white">
         <CardHeader>
-          <CardTitle>Daftar Outlet</CardTitle>
-          <CardDescription>Semua outlet yang terdaftar</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl font-bold text-gray-900">📍 Daftar Outlet</CardTitle>
+              <CardDescription className="text-gray-600">Semua outlet yang terdaftar di sistem</CardDescription>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           {outlets.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
-              Belum ada outlet terdaftar
-            </p>
+            <div className="text-center py-12">
+              <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <Store className="h-8 w-8 text-gray-400" />
+              </div>
+              <p className="text-sm text-gray-500 mb-2">Belum ada outlet terdaftar</p>
+              <p className="text-xs text-gray-400">Tambahkan outlet pertama Anda untuk memulai</p>
+            </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {outlets.map((outlet) => (
-                <Card key={outlet.id.toString()}>
-                  <CardHeader>
+                <Card key={outlet.id.toString()} className="border border-gray-200 hover:border-primary hover:shadow-md transition-all hover-lift">
+                  <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-base">{outlet.name}</CardTitle>
-                      <Badge variant={outlet.isActive ? 'default' : 'secondary'}>
-                        {outlet.isActive ? 'Aktif' : 'Nonaktif'}
-                      </Badge>
+                      <div className="flex items-start gap-3">
+                        <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <Store className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-base font-bold text-gray-900">{outlet.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{outlet.address}</CardDescription>
+                        </div>
+                      </div>
                     </div>
-                    <CardDescription className="text-xs">{outlet.address}</CardDescription>
                   </CardHeader>
+                  <CardContent className="pt-0">
+                    <Badge variant={outlet.isActive ? 'default' : 'secondary'} className={outlet.isActive ? 'bg-green-50 text-green-700 border-green-200' : ''}>
+                      {outlet.isActive ? '✓ Aktif' : 'Nonaktif'}
+                    </Badge>
+                  </CardContent>
                 </Card>
               ))}
             </div>
