@@ -1,6 +1,6 @@
 import { useGetCallerUserProfile, useIsCallerAdmin, useListOutlets, useGetDailySummaryOutlet, useGetOverallSummaryOutlet, useGetBestSellers, useListProductsByOutlet, useGetTopOutlets, useGetOutlet } from '../hooks/useQueries';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, DollarSign, ShoppingCart, Package, Store } from 'lucide-react';
+import { TrendingUp, DollarSign, ShoppingCart, Package, Store, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 
