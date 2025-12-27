@@ -139,45 +139,58 @@ function OwnerDashboard({ outlets }: { outlets: any[] }) {
         </Card>
       </div>
 
-      {/* Top Outlets */}
-      <Card>
+      {/* Top Outlets - Shopee Style */}
+      <Card className="border-0 shadow-md bg-white">
         <CardHeader>
-          <CardTitle>Performa Outlet</CardTitle>
-          <CardDescription>Outlet dengan pendapatan tertinggi</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl font-bold text-gray-900">🏆 Performa Outlet</CardTitle>
+              <CardDescription className="text-gray-600">Outlet dengan pendapatan tertinggi</CardDescription>
+            </div>
+            <Badge className="bg-primary/10 text-primary border-0">Top 5</Badge>
+          </div>
         </CardHeader>
         <CardContent>
           {topOutletsLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map(i => (
-                <div key={i} className="flex items-center justify-between">
+                <div key={i} className="flex items-center justify-between p-3">
                   <Skeleton className="h-4 w-40" />
                   <Skeleton className="h-4 w-20" />
                 </div>
               ))}
             </div>
           ) : !topOutlets || topOutlets.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
-              Belum ada data penjualan
-            </p>
+            <div className="text-center py-12">
+              <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <Store className="h-8 w-8 text-gray-400" />
+              </div>
+              <p className="text-sm text-gray-500">Belum ada data penjualan</p>
+            </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {topOutlets
                 .sort((a, b) => Number(b[1] - a[1]))
                 .slice(0, 5)
-                .map(([outletId, revenue]) => (
-                  <div key={outletId.toString()} className="flex items-center justify-between">
+                .map(([outletId, revenue], index) => (
+                  <div key={outletId.toString()} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Store className="h-5 w-5 text-primary" />
+                      <div className={`h-10 w-10 rounded-lg flex items-center justify-center font-bold text-lg ${
+                        index === 0 ? 'bg-yellow-100 text-yellow-700' :
+                        index === 1 ? 'bg-gray-100 text-gray-700' :
+                        index === 2 ? 'bg-orange-100 text-orange-700' :
+                        'bg-blue-50 text-blue-700'
+                      }`}>
+                        #{index + 1}
                       </div>
                       <div>
-                        <p className="font-medium">{getOutletName(outletId)}</p>
-                        <p className="text-sm text-muted-foreground">Outlet #{outletId.toString()}</p>
+                        <p className="font-semibold text-gray-900">{getOutletName(outletId)}</p>
+                        <p className="text-xs text-gray-500">Outlet #{outletId.toString()}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold">{formatCurrency(revenue)}</p>
-                      <p className="text-xs text-muted-foreground">Total</p>
+                      <p className="font-bold text-gray-900">{formatCurrency(revenue)}</p>
+                      <p className="text-xs text-gray-500">Total Pendapatan</p>
                     </div>
                   </div>
                 ))}
