@@ -24,6 +24,7 @@ import {
   Warehouse,
   Tag,
   Settings,
+  ShoppingBag,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -93,8 +94,10 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
               onNavigate(item.page);
               if (mobile) setIsMobileMenuOpen(false);
             }}
-            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-accent ${
-              isActive ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'
+            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-all text-sm font-medium ${
+              isActive 
+                ? 'bg-primary text-primary-foreground shadow-sm' 
+                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
             }`}
           >
             <Icon className="h-5 w-5" />
@@ -106,9 +109,9 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
   );
 
   return (
-    <div className="flex min-h-screen flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="flex min-h-screen flex-col bg-gray-50">
+      {/* Header - Shopee Style */}
+      <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-4">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -126,17 +129,24 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
                 </nav>
               </SheetContent>
             </Sheet>
-            <button onClick={() => onNavigate('dashboard')} className="flex items-center gap-2">
-              <ShoppingCart className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">POS System</span>
+            <button onClick={() => onNavigate('dashboard')} className="flex items-center gap-2.5 group">
+              <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                <ShoppingBag className="h-5 w-5 text-white" />
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="text-xl font-bold text-primary tracking-tight">TekraERPOS</span>
+                <span className="text-[10px] text-muted-foreground -mt-1">Smart Business Solution</span>
+              </div>
             </button>
           </div>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="gap-2">
-                <User className="h-5 w-5" />
-                <span className="hidden sm:inline">{userProfile?.name || 'User'}</span>
+              <Button variant="ghost" className="gap-2 hover:bg-gray-100">
+                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="h-4 w-4 text-primary" />
+                </div>
+                <span className="hidden sm:inline font-medium">{userProfile?.name || 'User'}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
@@ -149,7 +159,7 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+              <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer">
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
               </DropdownMenuItem>
@@ -159,8 +169,8 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
       </header>
 
       <div className="flex flex-1">
-        {/* Sidebar - Desktop */}
-        <aside className="hidden w-64 border-r bg-muted/40 md:block">
+        {/* Sidebar - Desktop - Shopee Style */}
+        <aside className="hidden w-64 border-r bg-white md:block">
           <nav className="flex flex-col gap-1 p-4">
             <NavLinks />
           </nav>
@@ -172,13 +182,21 @@ export default function MainLayout({ children, currentPage, onNavigate }: MainLa
         </main>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t py-6">
-        <div className="container text-center text-sm text-muted-foreground">
-          © 2025. Dibuat dengan ❤️ menggunakan{' '}
-          <a href="https://caffeine.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-            caffeine.ai
-          </a>
+      {/* Footer - Shopee Style */}
+      <footer className="border-t bg-white py-6">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <ShoppingBag className="h-4 w-4 text-primary" />
+              <span>© 2025 TekraERPOS. All rights reserved.</span>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              Powered by{' '}
+              <a href="https://caffeine.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">
+                Caffeine AI
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
