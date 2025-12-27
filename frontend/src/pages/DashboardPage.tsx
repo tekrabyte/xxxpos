@@ -271,73 +271,85 @@ function OutletDashboard({ outletId }: { outletId: bigint }) {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          {outlet ? `${outlet.name} - ${outlet.address}` : 'Ringkasan outlet Anda'}
+    <div className="space-y-6 animate-fade-in">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-6 text-white shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">Dashboard {outlet?.name || 'Outlet'} 📊</h1>
+        <p className="text-blue-100">
+          {outlet ? outlet.address : 'Ringkasan performa outlet Anda'}
         </p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Shopee Style */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Transaksi Hari Ini</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Transaksi Hari Ini</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center">
+              <ShoppingCart className="h-5 w-5 text-primary" />
+            </div>
           </CardHeader>
           <CardContent>
             {dailyLoading ? (
-              <Skeleton className="h-8 w-20" />
+              <Skeleton className="h-9 w-20" />
             ) : (
-              <p className="text-2xl font-bold">{dailySummary?.transactionCount.toString() || '0'}</p>
+              <p className="text-3xl font-bold text-gray-900">{dailySummary?.transactionCount.toString() || '0'}</p>
             )}
-            <p className="text-xs text-muted-foreground mt-1">Transaksi dalam 24 jam terakhir</p>
+            <p className="text-xs text-gray-600 mt-2 font-medium">24 jam terakhir</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pendapatan Hari Ini</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Pendapatan Hari Ini</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center">
+              <DollarSign className="h-5 w-5 text-green-600" />
+            </div>
           </CardHeader>
           <CardContent>
             {dailyLoading ? (
-              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-9 w-32" />
             ) : (
-              <p className="text-2xl font-bold">{formatCurrency(dailySummary?.totalRevenue || BigInt(0))}</p>
+              <p className="text-3xl font-bold text-gray-900">{formatCurrency(dailySummary?.totalRevenue || BigInt(0))}</p>
             )}
-            <p className="text-xs text-muted-foreground mt-1">Total penjualan hari ini</p>
+            <div className="flex items-center gap-1 mt-2">
+              <ArrowUpRight className="h-3 w-3 text-green-600" />
+              <span className="text-xs text-green-600 font-medium">Penjualan hari ini</span>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Transaksi</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Total Transaksi</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-orange-50 flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-orange-600" />
+            </div>
           </CardHeader>
           <CardContent>
             {overallLoading ? (
-              <Skeleton className="h-8 w-20" />
+              <Skeleton className="h-9 w-20" />
             ) : (
-              <p className="text-2xl font-bold">{overallSummary?.[0].toString() || '0'}</p>
+              <p className="text-3xl font-bold text-gray-900">{overallSummary?.[0].toString() || '0'}</p>
             )}
-            <p className="text-xs text-muted-foreground mt-1">Semua waktu</p>
+            <p className="text-xs text-gray-600 mt-2 font-medium">Semua waktu</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Pendapatan</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Total Pendapatan</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-purple-50 flex items-center justify-center">
+              <Package className="h-5 w-5 text-purple-600" />
+            </div>
           </CardHeader>
           <CardContent>
             {overallLoading ? (
-              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-9 w-32" />
             ) : (
-              <p className="text-2xl font-bold">{formatCurrency(overallSummary?.[1] || BigInt(0))}</p>
+              <p className="text-3xl font-bold text-gray-900">{formatCurrency(overallSummary?.[1] || BigInt(0))}</p>
             )}
-            <p className="text-xs text-muted-foreground mt-1">Semua waktu</p>
+            <p className="text-xs text-gray-600 mt-2 font-medium">Semua waktu</p>
           </CardContent>
         </Card>
       </div>
