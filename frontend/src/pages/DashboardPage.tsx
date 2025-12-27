@@ -53,69 +53,88 @@ function OwnerDashboard({ outlets }: { outlets: any[] }) {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard Owner</h1>
-        <p className="text-muted-foreground">Ringkasan performa semua outlet</p>
+    <div className="space-y-6 animate-fade-in">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-6 text-white shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">Selamat Datang, Owner! 👋</h1>
+        <p className="text-blue-100">Berikut ringkasan performa semua outlet Anda</p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Shopee Style */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Outlet</CardTitle>
-            <Store className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Total Outlet</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center">
+              <Store className="h-5 w-5 text-primary" />
+            </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{outlets.length}</p>
-            <p className="text-xs text-muted-foreground mt-1">{activeOutlets} aktif</p>
+            <p className="text-3xl font-bold text-gray-900">{outlets.length}</p>
+            <div className="flex items-center gap-1 mt-2">
+              <Badge variant="secondary" className="text-xs bg-green-50 text-green-700 border-0">
+                {activeOutlets} aktif
+              </Badge>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Pendapatan</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Total Pendapatan</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center">
+              <DollarSign className="h-5 w-5 text-green-600" />
+            </div>
           </CardHeader>
           <CardContent>
             {topOutletsLoading ? (
-              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-9 w-32" />
             ) : (
-              <p className="text-2xl font-bold">{formatCurrency(BigInt(totalRevenue))}</p>
+              <p className="text-3xl font-bold text-gray-900">{formatCurrency(BigInt(totalRevenue))}</p>
             )}
-            <p className="text-xs text-muted-foreground mt-1">Semua outlet</p>
+            <div className="flex items-center gap-1 mt-2">
+              <ArrowUpRight className="h-3 w-3 text-green-600" />
+              <span className="text-xs text-green-600 font-medium">Semua outlet</span>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Outlet Terbaik</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Outlet Terbaik</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-orange-50 flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-orange-600" />
+            </div>
           </CardHeader>
           <CardContent>
             {topOutletsLoading ? (
-              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-9 w-32" />
             ) : topOutlets && topOutlets.length > 0 ? (
               <>
-                <p className="text-2xl font-bold">{getOutletName(topOutlets[0][0])}</p>
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-2xl font-bold text-gray-900 truncate">{getOutletName(topOutlets[0][0])}</p>
+                <p className="text-xs text-gray-600 mt-2 font-medium">
                   {formatCurrency(topOutlets[0][1])}
                 </p>
               </>
             ) : (
-              <p className="text-sm text-muted-foreground">Belum ada data</p>
+              <p className="text-sm text-gray-500">Belum ada data</p>
             )}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-0 shadow-md hover-lift bg-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Status</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-gray-600">Status Sistem</CardTitle>
+            <div className="h-10 w-10 rounded-lg bg-purple-50 flex items-center justify-center">
+              <Package className="h-5 w-5 text-purple-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">Operasional</p>
-            <p className="text-xs text-muted-foreground mt-1">Semua sistem normal</p>
+            <p className="text-3xl font-bold text-gray-900">✓</p>
+            <div className="flex items-center gap-1 mt-2">
+              <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+              <span className="text-xs text-gray-600 font-medium">Operasional Normal</span>
+            </div>
           </CardContent>
         </Card>
       </div>
