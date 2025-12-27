@@ -1,7 +1,8 @@
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+ 
 @layer base {
     :root {
         --radius: 0.5rem;
@@ -37,6 +38,7 @@
         --sidebar-accent-foreground: 0 0% 9%;
         --sidebar-border: 0 0% 89.8%;
         --sidebar-ring: 217 100% 56%;
+    
     }
 
     .dark {

@@ -5,8 +5,9 @@ import animate from 'tailwindcss-animate';
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ['class'],
-    content: ['index.html', 'src/**/*.{js,ts,jsx,tsx,html,css}'],
+    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
+        extend: {
         container: {
             center: true,
             padding: '2rem',
