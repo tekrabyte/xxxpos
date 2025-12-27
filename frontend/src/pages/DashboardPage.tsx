@@ -354,45 +354,59 @@ function OutletDashboard({ outletId }: { outletId: bigint }) {
         </Card>
       </div>
 
-      {/* Best Sellers */}
-      <Card>
+      {/* Best Sellers - Shopee Style */}
+      <Card className="border-0 shadow-md bg-white">
         <CardHeader>
-          <CardTitle>Produk Terlaris</CardTitle>
-          <CardDescription>Produk dengan penjualan tertinggi di outlet ini</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl font-bold text-gray-900">🔥 Produk Terlaris</CardTitle>
+              <CardDescription className="text-gray-600">Produk dengan penjualan tertinggi di outlet ini</CardDescription>
+            </div>
+            <Badge className="bg-orange-100 text-orange-700 border-0">Top 5</Badge>
+          </div>
         </CardHeader>
         <CardContent>
           {bestSellersLoading ? (
             <div className="space-y-3">
               {[1, 2, 3].map(i => (
-                <div key={i} className="flex items-center justify-between">
+                <div key={i} className="flex items-center justify-between p-3">
                   <Skeleton className="h-4 w-40" />
                   <Skeleton className="h-4 w-20" />
                 </div>
               ))}
             </div>
           ) : !bestSellers || bestSellers.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
-              Belum ada data penjualan produk
-            </p>
+            <div className="text-center py-12">
+              <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <Package className="h-8 w-8 text-gray-400" />
+              </div>
+              <p className="text-sm text-gray-500 mb-2">Belum ada data penjualan produk</p>
+              <p className="text-xs text-gray-400">Mulai melakukan transaksi untuk melihat produk terlaris</p>
+            </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {bestSellers
                 .sort((a, b) => Number(b[1] - a[1]))
                 .slice(0, 5)
-                .map(([productId, quantity]) => (
-                  <div key={productId.toString()} className="flex items-center justify-between">
+                .map(([productId, quantity], index) => (
+                  <div key={productId.toString()} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <Package className="h-5 w-5 text-primary" />
+                      <div className={`h-12 w-12 rounded-lg flex items-center justify-center ${
+                        index === 0 ? 'bg-gradient-to-br from-yellow-400 to-orange-500' :
+                        index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400' :
+                        index === 2 ? 'bg-gradient-to-br from-orange-400 to-red-500' :
+                        'bg-gradient-to-br from-blue-400 to-blue-500'
+                      }`}>
+                        <Package className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium">{getProductName(productId)}</p>
-                        <p className="text-sm text-muted-foreground">Produk #{productId.toString()}</p>
+                        <p className="font-semibold text-gray-900">{getProductName(productId)}</p>
+                        <p className="text-xs text-gray-500">ID: #{productId.toString()}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold">{quantity.toString()}</p>
-                      <p className="text-xs text-muted-foreground">Terjual</p>
+                      <p className="text-2xl font-bold text-primary">{quantity.toString()}</p>
+                      <p className="text-xs text-gray-500">Terjual</p>
                     </div>
                   </div>
                 ))}
